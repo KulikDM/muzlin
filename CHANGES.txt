@@ -1,11 +1,16 @@
 v<0.0.1>, <10/23/2024> -- initial release.
-v<0.0.2>, <10/23/2022> -- style: lint and pep8.
-v<0.0.2>, <10/23/2022> -- docs: links for README.
-v<0.0.2>, <10/23/2022> -- test: disable tests.
-v<0.0.2>, <10/24/2022> -- chore: move to action pypi publish task.
-v<0.0.2>, <10/24/2022> -- chore: add urls to pyproject file.
-v<0.0.2>, <10/24/2022> -- docs: simplify jargon and make more visually readable.
-v<0.0.2>, <10/24/2022> -- refactor: clean notebooks of long cell outputs.
-v<0.0.2>, <10/27/2022> -- docs: add logo and pipeline images to README.
-v<0.0.2>, <10/29/2022> -- docs: add changelog.
-v<0.0.2>, <10/29/2022> -- chore: add automated release using changelog.
+v<0.0.2>, <10/23/2024> -- style: lint and pep8.
+v<0.0.2>, <10/23/2024> -- docs: links for README.
+v<0.0.2>, <10/23/2024> -- test: disable tests.
+v<0.0.2>, <10/24/2024> -- chore: move to action pypi publish task.
+v<0.0.2>, <10/24/2024> -- chore: add urls to pyproject file.
+v<0.0.2>, <10/24/2024> -- docs: simplify jargon and make more visually readable.
+v<0.0.2>, <10/24/2024> -- refactor: clean notebooks of long cell outputs.
+v<0.0.2>, <10/27/2024> -- docs: add logo and pipeline images to README.
+v<0.0.2>, <10/29/2024> -- docs: add changelog.
+v<0.0.2>, <10/29/2024> -- chore: add automated release using changelog.
+v<0.0.3>, <11/17/2024> -- fix: automated release generation
+v<0.0.3>, <11/17/2024> -- fix: automated release generation
+v<0.0.3>, <11/17/2024> -- feat: add max retries arg to openai encoder
+v<0.0.3>, <11/17/2024> -- feat: add client initialization to cohere encoder
+v<0.0.3>, <11/17/2024> -- feat: add mistral and voyageai encoders
