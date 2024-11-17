@@ -39,14 +39,14 @@ jobs:
 
           sleep 2m
 
-          printf "Beginning release validation"
+          printf "Beginning release validation\n"
 
-          repo_version=$(grep -oP '__version__ = "\K(\d+\.\d+\.\d+)' muzlin/__init__.py)
+          repo_version=$(grep -oP "__version__ = '\K(\d+\.\d+\.\d+)" muzlin/__init__.py)
 
           url="https://pypi.org/pypi/muzlin/json"
-          pypi_version=$(curl -s "$url" | jq -r '.info.version')
+          pypi_version=$(wget -q -O - "$url" | jq -r '.info.version')
 
-          printf "Validating version update"
+          printf "Validating version update\n"
 
           if [ "$pypi_version" != "$repo_version" ]; then
             printf "\nNew PyPi version $pypi_version does not match new repo version $repo_version \n"
