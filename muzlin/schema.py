@@ -11,6 +11,8 @@ class EncoderType(Enum):
     HUGGINGFACE = 'huggingface'
     GOOGLE = 'google'
     BEDROCK = 'bedrock'
+    VOYAGE = 'voyage'
+    MISTRAL = 'mistral'
 
 
 class EncoderInfo(BaseModel):

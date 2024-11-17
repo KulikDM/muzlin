@@ -19,6 +19,14 @@ class EncoderDefault(Enum):
         'embedding_model': os.getenv('COHERE_MODEL_NAME', 'embed-english-v3.0'),
         'language_model': os.getenv('COHERE_CHAT_MODEL_NAME', 'command'),
     }
+    VOYAGE = {
+        'embedding_model': os.getenv('VOYAGE_MODEL_NAME', 'voyage-3'),
+        'language_model': os.getenv('VOYAGE_CHAT_MODEL_NAME', 'voyage-3'),
+    }
+    MISTRAL = {
+        "embedding_model": os.getenv("MISTRAL_MODEL_NAME", "mistral-embed"),
+        "language_model": os.getenv("MISTRALAI_CHAT_MODEL_NAME", "mistral-tiny"),
+    }
     AZURE = {
         'embedding_model': os.getenv('AZURE_OPENAI_MODEL', 'text-embedding-3-small'),
         'language_model': os.getenv('OPENAI_CHAT_MODEL_NAME', 'gpt-4o'),

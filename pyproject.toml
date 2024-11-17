@@ -77,6 +77,8 @@ dev = [
     "isort",
     "openai>=1.10.0,<2.0.0",
     "cohere>=5.00,<6.00",
+    "voyageai",
+    "mistralai",
     "boto3",
     "botocore",
     "fastembed",
