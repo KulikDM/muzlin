@@ -70,7 +70,7 @@ to significant changes!
    .. code:: python
 
       import numpy as np
-      from muzlin.encoders import HuggingFaceEncoder
+      from muzlin.encoders import HuggingFaceEncoder # Ensure torch and transformers are installed
 
       encoder = HuggingFaceEncoder()
       vectors = encoder(texts)  # texts is a list of strings
