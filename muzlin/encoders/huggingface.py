@@ -27,17 +27,17 @@ class HuggingFaceEncoder(BaseEncoder):
 
     def _initialize_hf_model(self):
         try:
-            from transformers import AutoModel, AutoTokenizer
-        except ImportError:
-            raise ImportError(
-                'Please install transformers to use HuggingFaceEncoder.'
-            )
-
-        try:
             import torch
         except ImportError:
             raise ImportError(
                 'Please install Pytorch to use HuggingFaceEncoder.'
+            )
+
+        try:
+            from transformers import AutoModel, AutoTokenizer
+        except ImportError:
+            raise ImportError(
+                'Please install transformers to use HuggingFaceEncoder.'
             )
 
         self._torch = torch
