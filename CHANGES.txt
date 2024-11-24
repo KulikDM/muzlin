@@ -10,7 +10,7 @@ v<0.0.2>, <10/27/2024> -- docs: add logo and pipeline images to README.
 v<0.0.2>, <10/29/2024> -- docs: add changelog.
 v<0.0.2>, <10/29/2024> -- chore: add automated release using changelog.
 v<0.0.3>, <11/17/2024> -- fix: automated release generation
-v<0.0.3>, <11/17/2024> -- fix: automated release generation
 v<0.0.3>, <11/17/2024> -- feat: add max retries arg to openai encoder
 v<0.0.3>, <11/17/2024> -- feat: add client initialization to cohere encoder
 v<0.0.3>, <11/17/2024> -- feat: add mistral and voyageai encoders
+v<0.0.4>, <11/23/2024> -- chore: removed huggingface-hub, torch, transformers, and tokenizers from core dependencies
