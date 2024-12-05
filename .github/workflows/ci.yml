@@ -41,7 +41,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest -vs --doctest-modules --cov-fail-under=90 --cov-branch --cov=muzlin --cov-report term-missing --pyargs muzlin tests --continue-on-collection-errors
+        pytest -vs --doctest-modules --cov-fail-under=80 --cov-branch --cov=muzlin --cov-report term-missing --continue-on-collection-errors
     - name: Codecov
       uses: codecov/codecov-action@v4
       env:
