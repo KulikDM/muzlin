@@ -99,7 +99,7 @@ class OutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
                 ml.autolog()
             else:
                 logger.info('MLFlow not installed, defaulting to joblib')
-                self.mflow = False
+                self.mlflow = False
 
         X = check_array(X, ensure_2d=True)
         y = check_array(y, ensure_2d=False) if y is not None else y

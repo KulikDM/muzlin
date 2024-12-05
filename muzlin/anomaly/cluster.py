@@ -179,7 +179,7 @@ class OutlierCluster(BaseEstimator, OutlierMixin, BaseModel):
         docs = check_array(docs, ensure_2d=True)
 
         # Get scores and binary threshold
-        scores = self.decision_dunction(query, docs)
+        scores = self.decision_function(query, docs)
 
         nclust_dev = scores.nclust_dev
         topk_dev = scores.topk_dev
