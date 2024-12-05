@@ -124,6 +124,8 @@ vector encoding, and graph-based setups.
 |                                   | -  Google               |                      |
 |                                   | -  Amazon Bedrock       |                      |
 |                                   | -  Fastembed            |                      |
+|                                   | -  Mistral              |                      |
+|                                   | -  VoyageAI             |                      |
 +-----------------------------------+-------------------------+----------------------+
 
 **Simple Schematic Implementation**
