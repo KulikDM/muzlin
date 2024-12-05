@@ -116,7 +116,7 @@ class OutlierCluster(BaseEstimator, OutlierMixin, BaseModel):
                 ml.autolog()
             else:
                 logger.info('MLFlow not installed, defaulting to joblib')
-                self.mflow = False
+                self.mlflow = False
 
         X = check_array(X, ensure_2d=True)
 
@@ -191,7 +191,7 @@ class OutlierCluster(BaseEstimator, OutlierMixin, BaseModel):
 
         return ClusterPredict(nclust_cls=nclust_class, topk_cls=topk_class, density_cls=density_class)
 
-    def decision_dunction(self, query: XType, docs: XType) -> namedtuple:
+    def decision_function(self, query: XType, docs: XType) -> namedtuple:
         r"""Decision function of the OutlierCluster class.
 
         Args:

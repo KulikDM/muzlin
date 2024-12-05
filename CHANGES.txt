@@ -17,3 +17,6 @@ v<0.0.4>, <11/24/2024> -- chore: removed huggingface-hub, torch, transformers, a
 v<0.0.4>, <11/24/2024> -- refactor: improve package initialization with conditional imports for type checking
 v<0.0.4>, <11/24/2024> -- fix: missing typing Any import on cohere, mistral, and voyageai
 v<0.0.4>, <11/24/2024> -- fix: missing time sleep import on mistral
+v<0.0.5>, <12/05/2024> -- fix: missing mlflow import when set to true
+v<0.0.5>, <12/05/2024> -- fix: OutlierCluster decision_function misspelling
+v<0.0.5>, <12/05/2024> -- fix: contamination issue with values >100

@@ -123,7 +123,7 @@ class OutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
             X) if y is not None else self.pipeline.named_steps['detector'].labels_
 
         # Cater for different types of thresholding options
-        if (self.contamination is not None) & (y is not None):
+        if (self.contamination is not None) & (y is None):
 
             scores = self.pipeline.named_steps['detector'].decision_scores_
             contam = self.contamination
@@ -131,7 +131,7 @@ class OutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
             if isinstance(self.contamination, BaseThresholder):
                 lbls = self.contamination.eval(scores)
                 contam = len(lbls[lbls == 0])/len(lbls)
-            elif isinstance(self.contamination, int):
+            elif self.contamination > 1.0:
                 contam /= 100
             else:
                 contam = 1 - contam

@@ -80,9 +80,6 @@ class GraphOutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
         if self.pipeline is not None:
             return
 
-        if isinstance(self.contamination, int):
-            self.contamination = min(self.contamination, 100)
-
         if self.detector is None:
 
             logger.info(
@@ -124,7 +121,7 @@ class GraphOutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
                 ml.autolog()
             else:
                 logger.info('MLFlow not installed, defaulting to joblib')
-                self.mflow = False
+                self.mlflow = False
 
         self.pipeline.fit(graph_torch)
 
@@ -142,7 +139,7 @@ class GraphOutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
         if isinstance(self.contamination, BaseThresholder):
             lbls = self.contamination.eval(scores)
             contam = len(lbls[lbls == 0])/len(lbls)
-        elif isinstance(self.contamination, int):
+        elif self.contamination > 1.0:
             contam /= 100
         else:
             contam = 1 - contam
