@@ -6,12 +6,24 @@
 
 **Deployment, Stats, & License**
 
-|badge_pypi| |badge_stars| |badge_downloads| |badge_versions|
-|badge_licence|
+|badge_pypi| |badge_testing| |badge_coverage| |badge_maintainability| |badge_stars| 
+|badge_downloads| |badge_versions| |badge_licence|
 
 .. |badge_pypi| image:: https://img.shields.io/pypi/v/muzlin.svg?color=brightgreen&logo=pypi&logoColor=white
    :alt: PyPI version
    :target: https://pypi.org/project/muzlin/
+
+.. |badge_testing| image:: https://github.com/KulikDM/muzlin/actions/workflows/ci.yml/badge.svg
+   :alt: testing
+   :target: https://github.com/KulikDM/muzlin/actions/workflows/ci.yml
+
+.. |badge_coverage| image:: https://codecov.io/gh/KulikDM/muzlin/graph/badge.svg?token=O93AVDHCXV
+   :alt: Codecov
+   :target: https://codecov.io/gh/KulikDM/muzlin
+
+.. |badge_maintainability| image:: https://api.codeclimate.com/v1/badges/50c3f73536bcc37f4e2f/maintainability
+   :alt: Maintainability
+   :target: https://codeclimate.com/github/KulikDM/muzlin/maintainability
 
 .. |badge_stars| image:: https://img.shields.io/github/stars/KulikDM/muzlin.svg?logo=github&logoColor=white&style=flat
    :alt: GitHub stars
