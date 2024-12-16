@@ -12,17 +12,17 @@ from muzlin.utils.defaults import EncoderDefault
 class VoyageAIEncoder(BaseEncoder):
     _client: Any = PrivateAttr()
     _embed_type: Any = PrivateAttr()
-    type: str = "voyageai"
-    input_type: Optional[str] = "document"
+    type: str = 'voyageai'
+    input_type: Optional[str] = 'document'
 
     def __init__(
         self,
         name: Optional[str] = None,
         voyage_api_key: Optional[str] = None,
-        input_type: Optional[str] = "document",
+        input_type: Optional[str] = 'document',
     ):
         if name is None:
-            name = EncoderDefault.VOYAGE.value["embedding_model"]
+            name = EncoderDefault.VOYAGE.value['embedding_model']
         super().__init__(
             name=name,
             input_type=input_type,  # type: ignore
@@ -42,11 +42,11 @@ class VoyageAIEncoder(BaseEncoder):
             import voyageai
         except ImportError:
             raise ImportError(
-                "Please install VoyageAI to use VoyageEncoder. "
-                "You can install it with: "
-                "`pip install voyageai`"
+                'Please install VoyageAI to use VoyageEncoder. '
+                'You can install it with: '
+                '`pip install voyageai`'
             )
-        voyageai_api_key = voyage_api_key or os.getenv("VOYAGE_API_KEY")
+        voyageai_api_key = voyage_api_key or os.getenv('VOYAGE_API_KEY')
         if voyageai_api_key is None:
             raise ValueError("VoyageAI API key cannot be 'None'.")
         try:
@@ -59,7 +59,7 @@ class VoyageAIEncoder(BaseEncoder):
 
     def __call__(self, docs: List[str]) -> List[List[float]]:
         if self._client is None:
-            raise ValueError("VoyageAI client is not initialized.")
+            raise ValueError('VoyageAI client is not initialized.')
         try:
             embeds = self._client.embed(
                 texts=docs, input_type=self.input_type, model=self.name

@@ -1,5 +1,6 @@
-import apipkg
 from typing import TYPE_CHECKING
+
+import apipkg
 
 if not TYPE_CHECKING:
     # Lazy load the package using apipkg

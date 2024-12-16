@@ -12,17 +12,17 @@ from muzlin.utils.defaults import EncoderDefault
 class CohereEncoder(BaseEncoder):
     _client: Any = PrivateAttr()
     _embed_type: Any = PrivateAttr()
-    type: str = "cohere"
-    input_type: Optional[str] = "search_query"
+    type: str = 'cohere'
+    input_type: Optional[str] = 'search_query'
 
     def __init__(
         self,
         name: Optional[str] = None,
         cohere_api_key: Optional[str] = None,
-        input_type: Optional[str] = "search_query",
+        input_type: Optional[str] = 'search_query',
     ):
         if name is None:
-            name = EncoderDefault.COHERE.value["embedding_model"]
+            name = EncoderDefault.COHERE.value['embedding_model']
         super().__init__(
             name=name,
             input_type=input_type,  # type: ignore
@@ -45,11 +45,11 @@ class CohereEncoder(BaseEncoder):
             self._embed_type = EmbeddingsByTypeEmbedResponse
         except ImportError:
             raise ImportError(
-                "Please install Cohere to use CohereEncoder. "
-                "You can install it with: "
-                "`pip install cohere`"
+                'Please install Cohere to use CohereEncoder. '
+                'You can install it with: '
+                '`pip install cohere`'
             )
-        cohere_api_key = cohere_api_key or os.getenv("COHERE_API_KEY")
+        cohere_api_key = cohere_api_key or os.getenv('COHERE_API_KEY')
         if cohere_api_key is None:
             raise ValueError("Cohere API key cannot be 'None'.")
         try:
@@ -62,7 +62,7 @@ class CohereEncoder(BaseEncoder):
 
     def __call__(self, docs: List[str]) -> List[List[float]]:
         if self._client is None:
-            raise ValueError("Cohere client is not initialized.")
+            raise ValueError('Cohere client is not initialized.')
         try:
             embeds = self._client.embed(
                 texts=docs, input_type=self.input_type, model=self.name
@@ -70,7 +70,7 @@ class CohereEncoder(BaseEncoder):
             # Check for unsupported type.
             if isinstance(embeds, self._embed_type):
                 raise NotImplementedError(
-                    "Handling of EmbedByTypeResponseEmbeddings is not implemented."
+                    'Handling of EmbedByTypeResponseEmbeddings is not implemented.'
                 )
             else:
                 return embeds.embeddings

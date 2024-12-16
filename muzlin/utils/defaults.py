@@ -24,8 +24,8 @@ class EncoderDefault(Enum):
         'language_model': os.getenv('VOYAGE_CHAT_MODEL_NAME', 'voyage-3'),
     }
     MISTRAL = {
-        "embedding_model": os.getenv("MISTRAL_MODEL_NAME", "mistral-embed"),
-        "language_model": os.getenv("MISTRALAI_CHAT_MODEL_NAME", "mistral-tiny"),
+        'embedding_model': os.getenv('MISTRAL_MODEL_NAME', 'mistral-embed'),
+        'language_model': os.getenv('MISTRALAI_CHAT_MODEL_NAME', 'mistral-tiny'),
     }
     AZURE = {
         'embedding_model': os.getenv('AZURE_OPENAI_MODEL', 'text-embedding-3-small'),

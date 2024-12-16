@@ -6,7 +6,7 @@
 
 **Deployment, Stats, & License**
 
-|badge_pypi| |badge_testing| |badge_coverage| |badge_maintainability| |badge_stars| 
+|badge_pypi| |badge_testing| |badge_coverage| |badge_maintainability| |badge_stars|
 |badge_downloads| |badge_versions| |badge_licence|
 
 .. |badge_pypi| image:: https://img.shields.io/pypi/v/muzlin.svg?color=brightgreen&logo=pypi&logoColor=white

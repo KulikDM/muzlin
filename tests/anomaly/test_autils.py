@@ -6,6 +6,7 @@ import pytest
 
 from muzlin.anomaly import OutlierDetector, optimize_threshold
 
+_ = mlflow.config.get_registry_uri()
 logging.basicConfig(level=logging.ERROR)
 
 mlflow_logger = logging.getLogger('mlflow')
@@ -20,6 +21,7 @@ def sample_data():
     y = np.random.choice([0, 1], size=1000, p=[0.95, 0.05])
     return X, y
 
+
 @pytest.fixture
 def outlier_detector():
     """Fixture to create OutlierDetector instances with custom parameters."""
@@ -27,11 +29,12 @@ def outlier_detector():
         return OutlierDetector(**kwargs)
     return _create_outlier_detector
 
+
 class TestUtils:
 
-    @pytest.mark.parametrize("policy", ['hard', 'soft', 'balanced'])
+    @pytest.mark.parametrize('policy', ['hard', 'soft', 'balanced'])
     def test_optimize_with_policy(self, outlier_detector, sample_data, policy):
-        """Test comtaination optimization using different policies"""
+        """Test comtaination optimization using different policies."""
         X, y = sample_data
         detector = outlier_detector()
         detector.fit(X)
@@ -44,8 +47,8 @@ class TestUtils:
 
         real_labels = [1, 0, 1, 0,]
 
-        thresh_score, thresh_perc = optimize_threshold(fitted_scores, pred_scores, real_labels, policy=policy)
+        thresh_score, thresh_perc = optimize_threshold(
+            fitted_scores, pred_scores, real_labels, policy=policy)
 
         assert thresh_score is not None
         assert 0 <= thresh_perc <= 300
-

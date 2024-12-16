@@ -1,5 +1,6 @@
-import apipkg
 from typing import TYPE_CHECKING
+
+import apipkg
 
 if not TYPE_CHECKING:
     # Lazy load the package using apipkg
@@ -20,13 +21,12 @@ if not TYPE_CHECKING:
 else:
     # Direct imports for type checking and static analysis
     from muzlin.encoders.base import BaseEncoder
-    from muzlin.encoders.zure import AzureOpenAIEncoder
     from muzlin.encoders.bedrock import BedrockEncoder
     from muzlin.encoders.cohere import CohereEncoder
     from muzlin.encoders.fastembed import FastEmbedEncoder
     from muzlin.encoders.google import GoogleEncoder
-    from muzlin.encoders.huggingface import HuggingFaceEncoder
-    from muzlin.encoders.huggingface import HFEndpointEncoder
+    from muzlin.encoders.huggingface import HFEndpointEncoder, HuggingFaceEncoder
     from muzlin.encoders.mistral import MistralEncoder
     from muzlin.encoders.openai import OpenAIEncoder
     from muzlin.encoders.voyageai import VoyageAIEncoder
+    from muzlin.encoders.zure import AzureOpenAIEncoder

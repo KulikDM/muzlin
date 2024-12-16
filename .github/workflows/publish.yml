@@ -52,7 +52,7 @@ jobs:
             printf "\nNew PyPi version $pypi_version does not match new repo version $repo_version \n"
             exit 1
           fi
-          
+
           latest_version=$pypi_version
           echo "latest_version=$latest_version" >> $GITHUB_ENV
 
@@ -87,4 +87,3 @@ jobs:
             -d "$JSON_DATA"
 
           printf "\nNew release posted succesfully\n"
-

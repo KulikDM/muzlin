@@ -19,7 +19,7 @@ Classes:
 import json
 import os
 from time import sleep
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 import tiktoken
 
@@ -144,11 +144,14 @@ class BedrockEncoder(BaseEncoder):
             ) from err
         return bedrock_client
 
-    def __call__(self, docs: List[str]) -> List[List[float]]:
+    def __call__(
+        self, docs: List[Union[str, Dict]], model_kwargs: Optional[Dict] = None
+    ) -> List[List[float]]:
         """Generates embeddings for the given documents.
 
         Args:
             docs: A list of strings representing the documents to embed.
+            model_kwargs: A dictionary of model-specific inference parameters.
 
         Returns:
             A list of lists, where each inner list contains the embedding values for a
@@ -174,13 +177,31 @@ class BedrockEncoder(BaseEncoder):
                 embeddings = []
                 if self.name and 'amazon' in self.name:
                     for doc in docs:
-                        embedding_body = json.dumps(
-                            {
-                                'inputText': doc,
-                            }
-                        )
+
+                        embedding_body = {}
+
+                        if isinstance(doc, dict):
+                            embedding_body['inputText'] = doc.get('text')
+                            embedding_body['inputImage'] = doc.get(
+                                'image'
+                            )  # expects a base64-encoded image
+                        else:
+                            embedding_body['inputText'] = doc
+
+                        # Add model-specific inference parameters
+                        if model_kwargs:
+                            embedding_body = embedding_body | model_kwargs
+
+                        # Clean up null values
+                        embedding_body = {k: v for k,
+                                          v in embedding_body.items() if v}
+
+                        # Format payload
+                        embedding_body_payload: str = json.dumps(
+                            embedding_body)
+
                         response = self.client.invoke_model(
-                            body=embedding_body,
+                            body=embedding_body_payload,
                             modelId=self.name,
                             accept='application/json',
                             contentType='application/json',
@@ -190,9 +211,16 @@ class BedrockEncoder(BaseEncoder):
                 elif self.name and 'cohere' in self.name:
                     chunked_docs = self.chunk_strings(docs)
                     for chunk in chunked_docs:
-                        chunk = json.dumps(
-                            {'texts': chunk, 'input_type': self.input_type}
-                        )
+                        chunk = {'texts': chunk, 'input_type': self.input_type}
+
+                        # Add model-specific inference parameters
+                        # Note: if specified, input_type will be overwritten by model_kwargs
+                        if model_kwargs:
+                            chunk = chunk | model_kwargs
+
+                        # Format payload
+                        chunk = json.dumps(chunk)
+
                         response = self.client.invoke_model(
                             body=chunk,
                             modelId=self.name,

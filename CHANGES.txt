@@ -23,4 +23,4 @@ v<0.0.5>, <12/05/2024> -- fix: contamination issue with values >100
 v<0.0.5>, <12/05/2024> -- docs: update README with additional available encoders
 v<0.0.5>, <12/05/2024> -- feat: add all test cases for anomaly, encoders, and index classes
 v<0.0.5>, <12/16/2024> -- feat: added CodeCov and Code Climate badges to README
-v<0.0.5>, <12/16/2024> -- chore: Fomat and linted code
+v<0.0.5>, <12/16/2024> -- chore: Format and linted code

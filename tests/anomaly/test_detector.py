@@ -1,24 +1,23 @@
 import importlib
-import logging
-import os
 import importlib.util
+import logging
 from unittest.mock import patch
 
 import mlflow
 import numpy as np
 import pytest
-from pyod.models.knn import KNN
 from pyod.models.iforest import IForest
-from pythresh.thresholds.iqr import IQR
+from pyod.models.knn import KNN
 from pythresh.thresholds.clf import CLF
+from pythresh.thresholds.iqr import IQR
 from sklearn.base import BaseEstimator
-from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
 
 import muzlin.anomaly.detector as det
 from muzlin.anomaly import OutlierDetector
 
-
+_ = mlflow.config.get_registry_uri()
 logging.basicConfig(level=logging.ERROR)
 
 mlflow_logger = logging.getLogger('mlflow')
@@ -33,6 +32,7 @@ def sample_data():
     y = np.random.choice([0, 1], size=1000, p=[0.95, 0.05])
     return X, y
 
+
 @pytest.fixture
 def outlier_detector():
     """Fixture to create OutlierDetector instances with custom parameters."""
@@ -40,17 +40,21 @@ def outlier_detector():
         return OutlierDetector(**kwargs)
     return _create_outlier_detector
 
+
 def pipeline_checks(detector, X, y):
     """Standard checks for a fitted OutlierDetector."""
     assert hasattr(detector, 'threshold_')
     assert hasattr(detector, 'labels_')
-    assert hasattr(detector.pipeline.named_steps['detector'], 'decision_scores_')
+    assert hasattr(
+        detector.pipeline.named_steps['detector'], 'decision_scores_')
     assert hasattr(detector.pipeline.named_steps['detector'], 'Xstd_')
 
-    assert len(detector.pipeline.named_steps['detector'].decision_scores_) == len(y)
+    assert len(
+        detector.pipeline.named_steps['detector'].decision_scores_) == len(y)
     assert len(detector.labels_) == len(y)
     assert np.all(np.isin(detector.labels_, [0, 1]))
-    assert detector.pipeline.named_steps['detector'].Xstd_ == pytest.approx(np.std(X))
+    assert detector.pipeline.named_steps['detector'].Xstd_ == pytest.approx(
+        np.std(X))
 
 
 class TestOutlierDetector:
@@ -70,9 +74,9 @@ class TestOutlierDetector:
         pipeline_checks(detector, X, y)
         assert detector.threshold_ is None
 
-    @pytest.mark.parametrize("method", [KNN(), IForest(), LogisticRegression()])
+    @pytest.mark.parametrize('method', [KNN(), IForest(), LogisticRegression()])
     def test_fit_with_detector(self, outlier_detector, sample_data, method):
-        """Test fitting with different outlier detector methods"""
+        """Test fitting with different outlier detector methods."""
         X, y = sample_data
         detector = outlier_detector(detector=method)
         detector.fit(X, y)
@@ -80,9 +84,9 @@ class TestOutlierDetector:
         pipeline_checks(detector, X, y)
         assert detector.detector == method
 
-    @pytest.mark.parametrize("contamination", [0.02, 0.15, 85, 110, IQR(), CLF()])
+    @pytest.mark.parametrize('contamination', [0.02, 0.15, 85, 110, IQR(), CLF()])
     def test_fit_with_contamination(self, outlier_detector, sample_data, contamination):
-        """Test fitting with different contamination settings"""
+        """Test fitting with different contamination settings."""
         X, y = sample_data
         detector = outlier_detector(contamination=contamination)
         detector.fit(X)
@@ -103,14 +107,14 @@ class TestOutlierDetector:
         assert detector.detector == method
         assert detector.pipeline.threshold_ is None
 
-    @pytest.mark.parametrize("contamination", [None, 0.1])
+    @pytest.mark.parametrize('contamination', [None, 0.1])
     def test_predict_function(self, outlier_detector, sample_data, contamination):
         """Test the `predict` function."""
         X, _ = sample_data
         detector = outlier_detector(contamination=contamination)
         detector.fit(X)
         labels = detector.predict(X)
-        
+
         assert detector.contamination == contamination
         assert labels.shape[0] == X.shape[0]
         assert set(labels).issubset({0, 1})
@@ -128,20 +132,20 @@ class TestOutlierDetector:
         """Test error handling for invalid labels."""
         X, y = sample_data
         y_invalid = np.random.randint(2, 5, size=y.shape[0])
-        with pytest.raises(ValueError, match="y should only contain binary values 0 or 1."):
+        with pytest.raises(ValueError, match='y should only contain binary values 0 or 1.'):
             detector = outlier_detector()
             detector.fit(X, y=y_invalid)
 
     def test_model_loading_and_reinitialization(self, tmp_path, outlier_detector, sample_data):
         """Test saving, loading, and reinitializing the model."""
-        
-        model_path = tmp_path / "outlier_detector.pkl"
+
+        model_path = tmp_path / 'outlier_detector.pkl'
         X, y = sample_data
 
         detector = outlier_detector(mlflow=False, model=str(model_path))
         detector.fit(X)
         labels = detector.predict(X)
-        
+
         # Check the saved file exists
         assert model_path.exists()
 
@@ -161,13 +165,13 @@ class TestOutlierDetector:
         X, _ = sample_data
 
         original_find_spec = importlib.util.find_spec
-        
+
         def custom_find_spec(name):
             if name == 'mlflow':
                 return None
             return original_find_spec(name)
 
-        with patch("importlib.util.find_spec", side_effect=custom_find_spec):
+        with patch('importlib.util.find_spec', side_effect=custom_find_spec):
             importlib.reload(det)
             detector = OutlierDetector(mlflow=True)
             detector.fit(X)
