@@ -6,7 +6,7 @@ import pytest
 
 from muzlin.encoders.huggingface import HuggingFaceEncoder
 
-test_model_name = 'aurelio-ai/sr-test-huggingface'
+test_model_name = 'sentence-transformers/all-MiniLM-L6-v2'
 
 # Code adapted from https://github.com/aurelio-labs/semantic-router/blob/main/tests/unit/encoders/test_huggingface.py
 
@@ -29,9 +29,6 @@ class TestHuggingFaceEncoder:
         assert 'Please install Pytorch to use HuggingFaceEncoder' in str(
             error.value)
 
-    @pytest.mark.skipif(
-        os.environ.get('RUN_HF_TESTS') is None, reason='Set RUN_HF_TESTS=1 to run'
-    )
     def test_huggingface_encoder_mean_pooling(self):
         encoder = HuggingFaceEncoder(name=test_model_name)
         test_docs = ['This is a test', 'This is another test']
@@ -41,9 +38,6 @@ class TestHuggingFaceEncoder:
         assert all(isinstance(embedding, list) for embedding in embeddings)
         assert all(len(embedding) > 0 for embedding in embeddings)
 
-    @pytest.mark.skipif(
-        os.environ.get('RUN_HF_TESTS') is None, reason='Set RUN_HF_TESTS=1 to run'
-    )
     def test_huggingface_encoder_max_pooling(self):
         encoder = HuggingFaceEncoder(name=test_model_name)
         test_docs = ['This is a test', 'This is another test']
@@ -53,9 +47,6 @@ class TestHuggingFaceEncoder:
         assert all(isinstance(embedding, list) for embedding in embeddings)
         assert all(len(embedding) > 0 for embedding in embeddings)
 
-    @pytest.mark.skipif(
-        os.environ.get('RUN_HF_TESTS') is None, reason='Set RUN_HF_TESTS=1 to run'
-    )
     def test_huggingface_encoder_normalized_embeddings(self):
         encoder = HuggingFaceEncoder(name=test_model_name)
         docs = ['This is a test document.', 'Another test document.']
