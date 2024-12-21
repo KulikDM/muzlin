@@ -3,7 +3,7 @@ import time
 from typing import Any, List, Optional
 
 import requests
-from pydantic.v1 import PrivateAttr
+from pydantic import PrivateAttr
 
 from muzlin.encoders import BaseEncoder
 from muzlin.utils.logger import logger

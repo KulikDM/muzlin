@@ -4,7 +4,7 @@ from typing import List, Optional, Type, Union
 
 import joblib
 import numpy as np
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from pyod.models.base import BaseDetector
 from pythresh.thresholds.base import BaseThresholder
 from sklearn.base import BaseEstimator, ClassifierMixin, OutlierMixin

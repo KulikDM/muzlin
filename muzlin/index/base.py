@@ -1,6 +1,6 @@
 from typing import Any, List, Union
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 
 class BaseIndex(BaseModel):

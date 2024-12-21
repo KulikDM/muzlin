@@ -1,7 +1,7 @@
 from typing import List, Optional, Union
 
 from langchain_core.vectorstores import VectorStore, VectorStoreRetriever
-from pydantic.v1 import Field
+from pydantic import Field
 
 from muzlin.index import BaseIndex
 from muzlin.utils.logger import logger

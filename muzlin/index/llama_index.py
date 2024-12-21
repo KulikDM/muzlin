@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from llama_index.core.base.base_retriever import BaseRetriever
 from llama_index.core.indices.vector_store.base import VectorStoreIndex
-from pydantic.v1 import Field
+from pydantic import Field
 
 from muzlin.index import BaseIndex
 from muzlin.utils.logger import logger

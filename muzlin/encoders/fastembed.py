@@ -1,7 +1,7 @@
 from typing import Any, List, Optional
 
 import numpy as np
-from pydantic.v1 import PrivateAttr
+from pydantic import PrivateAttr
 
 from muzlin.encoders import BaseEncoder
 

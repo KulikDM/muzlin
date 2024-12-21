@@ -79,4 +79,4 @@ class TestLangchainIndex:
         """Test ValueError raised when index is None."""
 
         with pytest.raises(ValueError, match='Langchain Index is required'):
-            LangchainIndex(index=None, top_k=5)
+            LangchainIndex(top_k=5)

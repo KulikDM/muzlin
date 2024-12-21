@@ -86,4 +86,4 @@ class TestLlamaIndex:
         """Test ValueError raised when index is None."""
 
         with pytest.raises(ValueError, match='LLamaindex Index is required'):
-            LlamaIndex(index=None, top_k=5)
+            LlamaIndex(top_k=5)

@@ -7,7 +7,7 @@ import networkx as nx
 import numpy as np
 import torch
 import torch_geometric
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from pygod.detector.base import Detector
 from pythresh.thresholds.base import BaseThresholder
 from sklearn.base import BaseEstimator, OutlierMixin, RegressorMixin

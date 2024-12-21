@@ -1,7 +1,7 @@
 import os
 from typing import Any, List, Optional
 
-from pydantic.v1 import PrivateAttr
+from pydantic import PrivateAttr
 
 from muzlin.encoders import BaseEncoder
 from muzlin.utils.defaults import EncoderDefault

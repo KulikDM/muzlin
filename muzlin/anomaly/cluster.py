@@ -6,7 +6,7 @@ from typing import List, Optional, Type, Union
 import joblib
 import numpy as np
 import umap
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from scipy.spatial.distance import cdist
 from sklearn.base import BaseEstimator, ClusterMixin, OutlierMixin, TransformerMixin
 from sklearn.mixture._base import BaseMixture

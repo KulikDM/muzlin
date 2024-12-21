@@ -7,7 +7,7 @@ import tiktoken
 from openai import OpenAIError
 from openai._types import NotGiven
 from openai.types import CreateEmbeddingResponse
-from pydantic.v1 import PrivateAttr
+from pydantic import PrivateAttr
 
 from muzlin.encoders import BaseEncoder
 from muzlin.schema import EncoderInfo
