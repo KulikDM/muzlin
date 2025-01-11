@@ -50,6 +50,7 @@ class GraphOutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
         threshold_ (float): The percentile used to threshold inliers from outliers in the model.
         labels_ (array-like): The array of the fitted binary labels for the training data.
         reg_R2_ (float): The R2 score of the fitted regression model on the training data.
+        rm_indices_ (list): Removed node indices from the networkx graph prior to fitting. Unconnected nodes cannot be used during fitting and will be assigned outlier labels in the fitted output.
 
     """
 
@@ -66,6 +67,7 @@ class GraphOutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
     threshold_: float = Field(default=None, exclude=True)
     labels_: Type[np.ndarray] = Field(default=None, exclude=True)
     reg_R2_: float = Field(default=None, exclude=True)
+    rm_indices_: list = Field(default=None, exclude=True)
 
     class Config:
         arbitrary_types_allowed = True
@@ -110,6 +112,8 @@ class GraphOutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
             y (array-like, or None, optional): Not required.
         """
 
+        len_g = len(graph)
+
         # Prepare graph and vector data before fitting
         graph_torch, vectors = self._preprocess_graph(graph)
 
@@ -147,10 +151,16 @@ class GraphOutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
         self.threshold_ = (np.percentile(scores, contam*100) if
                            contam <= 1.0 else contam * np.max(scores))
 
-        labels = (scores > self.threshold_).astype('int').ravel()
+        fitted_labels = (scores > self.threshold_).astype('int').ravel()
+
+        # Assure that the lengths of the output labels and input graph nodes match
+        full_labels = np.ones(len_g)
+        full_labels[np.setdiff1d(
+            np.arange(len_g), self.rm_indices_)] = fitted_labels
 
         setattr(self.pipeline, 'threshold_', self.threshold_)
-        setattr(self.pipeline, 'labels_', labels)
+        setattr(self.pipeline, 'labels_', full_labels)
+        setattr(self.pipeline, 'rm_indices_', self.rm_indices_)
         setattr(self.regressor, 'reg_R2_', reg_R2_)
 
         # Relog model to save attr
@@ -209,7 +219,7 @@ class GraphOutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
         nodes_and_indices = [(index, node) for index, (node, degree) in
                              enumerate(dict(graph.degree()).items()) if degree == 0]
 
-        indices, nodes_to_remove = zip(
+        self.rm_indices_, nodes_to_remove = zip(
             *nodes_and_indices) if nodes_and_indices else ([], [])
 
         graph.remove_nodes_from(nodes_to_remove)
@@ -255,6 +265,8 @@ class GraphOutlierDetector(BaseEstimator, OutlierMixin, BaseModel):
 
         self.threshold_ = self.pipeline.threshold_
         self.labels_ = self.pipeline.labels_
+        self.rm_indices_ = self.pipeline.rm_indices_ if hasattr(
+            self.pipeline, 'rm_indices_') else []
         self.decision_scores_ = self.pipeline.named_steps['detector'].decision_score_.numpy(
         )
         self.reg_R2_ = self.regressor.reg_R2_

@@ -50,6 +50,7 @@ def pipeline_checks(detector, X, y):
     """Standard checks for a fitted GraphOutlierDetector."""
     assert hasattr(detector, 'threshold_')
     assert hasattr(detector, 'labels_')
+    assert hasattr(detector, 'rm_indices_')
     assert hasattr(
         detector.pipeline.named_steps['detector'], 'decision_score_')
     assert hasattr(detector.regressor, 'reg_R2_')
@@ -148,6 +149,8 @@ class TestGraphOutlierDetector:
         decision_scores = detector.pipeline.named_steps['detector'].decision_score_.numpy(
         )
         assert decision_scores.shape[0] < X.shape[0]
+        assert len(detector.rm_indices_) > 0
+        assert len(detector.labels_) == len(X)
 
     def test_missing_x_attr(self, outlier_detector):
         """Test fit failure due to missing x node attribute."""

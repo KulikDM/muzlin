@@ -5,8 +5,8 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
+      - id: check-toml
       - id: double-quote-string-fixer
-      - id: requirements-txt-fixer
       - id: name-tests-test
         always_run: true
         args: [--pytest-test-first]
@@ -21,7 +21,7 @@ repos:
         name: Format docstrings
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.18.0
+    rev: v3.19.1
     hooks:
       - id: pyupgrade
         args: [--py38-plus]
@@ -42,7 +42,7 @@ repos:
         name: Sort imports
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.8.3
+    rev: v0.8.6
     hooks:
       - id: ruff
         args: [--exit-non-zero-on-fix, --fix, --line-length=180, --extend-ignore=F401]

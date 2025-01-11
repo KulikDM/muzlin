@@ -27,3 +27,4 @@ v<0.0.5>, <12/16/2024> -- chore: format and linted code
 v<0.0.6>, <12/20/2024> -- chore: unskip huggingface tests
 v<0.0.6>, <12/21/2024> -- chore: switch from pydantic.v1 to pydantic
 v<0.0.6>, <12/21/2024> -- chore: added init tests
+v<0.0.6>, <01/11/2025> -- fix: mismatch of input graph to output fit labels shape for GraphOutlierDetector
